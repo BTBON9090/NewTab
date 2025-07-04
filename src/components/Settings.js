@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const Settings = ({
   backgroundType, setBackgroundType,
@@ -183,3 +184,22 @@ const Settings = ({
 };
 
 export default Settings;
+
+Settings.propTypes = {
+  backgroundType: PropTypes.string.isRequired,
+  setBackgroundType: PropTypes.func.isRequired,
+  backgroundColor: PropTypes.string.isRequired,
+  setBackgroundColor: PropTypes.func.isRequired,
+  backgroundImageUrl: PropTypes.string.isRequired,
+  setBackgroundImageUrl: PropTypes.func.isRequired,
+  backgroundLocalImage: PropTypes.object, // File object, can be null
+  setBackgroundLocalImage: PropTypes.func.isRequired,
+  overlayOpacity: PropTypes.number.isRequired,
+  setOverlayOpacity: PropTypes.func.isRequired,
+  blurAmount: PropTypes.number.isRequired,
+  setBlurAmount: PropTypes.func.isRequired,
+  fontFamily: PropTypes.string.isRequired,
+  setFontFamily: PropTypes.func.isRequired,
+  fontSize: PropTypes.number.isRequired,
+  setFontSize: PropTypes.func.isRequired,
+};

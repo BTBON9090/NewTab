@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const EnterpriseDrive = () => {
   const [recentFiles, setRecentFiles] = useState([

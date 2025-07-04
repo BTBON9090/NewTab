@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const AnnouncementBar = () => {
   const [announcement, setAnnouncement] = useState(() => localStorage.getItem('announcement') || '欢迎使用新标签页！');

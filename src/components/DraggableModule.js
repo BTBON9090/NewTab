@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 
 const DraggableModule = ({ id, children }) => {
@@ -46,3 +47,8 @@ const DraggableModule = ({ id, children }) => {
 };
 
 export default DraggableModule;
+
+DraggableModule.propTypes = {
+  id: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};

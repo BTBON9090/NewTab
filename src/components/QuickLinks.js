@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const QuickLinks = () => {
-  const [enterpriseLinks, setEnterpriseLinks] = useState([
-    { name: '企业邮箱', url: 'https://mail.example.com' },
-    { name: '企业OA', url: 'https://oa.example.com' },
-  ]);
-  const [personalLinks, setPersonalLinks] = useState([
-    { name: '个人博客', url: 'https://myblog.com' },
-    { name: '常用工具', url: 'https://tools.com' },
-  ]);
+  const [enterpriseLinks, setEnterpriseLinks] = useState(() => {
+    const storedLinks = localStorage.getItem('enterpriseLinks');
+    return storedLinks ? JSON.parse(storedLinks) : [
+      { name: '企业邮箱', url: 'https://mail.example.com' },
+      { name: '企业OA', url: 'https://oa.example.com' },
+    ];
+  });
+  const [personalLinks, setPersonalLinks] = useState(() => {
+    const storedLinks = localStorage.getItem('personalLinks');
+    return storedLinks ? JSON.parse(storedLinks) : [
+      { name: '个人博客', url: 'https://myblog.com' },
+      { name: '常用工具', url: 'https://tools.com' },
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('enterpriseLinks', JSON.stringify(enterpriseLinks));
+  }, [enterpriseLinks]);
+
+  useEffect(() => {
+    localStorage.setItem('personalLinks', JSON.stringify(personalLinks));
+  }, [personalLinks]);
 
   const handleAddLink = (type) => {
     const name = prompt('Enter link name:');
