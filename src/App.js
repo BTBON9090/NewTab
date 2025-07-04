@@ -121,9 +121,9 @@ const App = () => {
       <button
         onClick={() => setShowSettings(!showSettings)}
         style={{
-          position: 'fixed', /* Use fixed for consistent positioning */
-          top: '20px',
-          left: '20px',
+          position: 'fixed',
+          bottom: '20px', /* Move to bottom */
+          right: '20px', /* Move to right */
           zIndex: 101,
           padding: '10px 18px', /* Slightly more padding */
           backgroundColor: 'rgba(0,0,0,0.6)', /* Slightly more opaque */
