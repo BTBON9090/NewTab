@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import Settings from './components/Settings';
+import Clock from './components/Clock';
+import SearchBar from './components/SearchBar';
+import QuickLinks from './components/QuickLinks';
+import AnnouncementBar from './components/AnnouncementBar';
+import EnterpriseDrive from './components/EnterpriseDrive';
+import OtherModule from './components/OtherModule';
 import '../style.css'; // Import the main stylesheet
 
 const App = () => {
@@ -45,7 +51,12 @@ const App = () => {
   return (
     <div style={getBackgroundStyle()} className="app-container">
       <div style={getOverlayStyle()}></div>
-      <h1>Hello, React New Tab!</h1>
+      <Clock />
+      <SearchBar />
+      <QuickLinks />
+      <AnnouncementBar />
+      <EnterpriseDrive />
+      <OtherModule />
       <Settings
         backgroundType={backgroundType}
         setBackgroundType={setBackgroundType}
