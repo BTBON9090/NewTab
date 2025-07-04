@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const OtherModule = () => {
+const OtherModule = React.memo(() => {
   return (
     <div style={{
       backgroundColor: 'rgba(255, 255, 255, 0.2)',
@@ -19,6 +19,6 @@ const OtherModule = () => {
       <p>这是一个通用模块，可用于未来扩展或自定义内容。</p>
     </div>
   );
-};
+});
 
 export default OtherModule;
