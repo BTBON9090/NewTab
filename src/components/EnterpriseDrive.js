@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const EnterpriseDrive = () => {
+const EnterpriseDrive = ({ showMessage }) => {
   const [recentFiles, setRecentFiles] = useState([
     { id: 1, name: 'Project Proposal.pdf', url: 'https://example.com/drive/project_proposal.pdf', shareLink: 'https://example.com/share/project_proposal' },
     { id: 2, name: 'Team Meeting Notes.docx', url: 'https://example.com/drive/meeting_notes.docx', shareLink: 'https://example.com/share/meeting_notes' },
@@ -15,8 +15,8 @@ const EnterpriseDrive = () => {
 
   const handleShareClick = (file) => {
     navigator.clipboard.writeText(file.shareLink)
-      .then(() => alert(`Share link copied to clipboard: ${file.shareLink}`)) 
-      .catch(err => console.error('Could not copy text: ', err));
+      .then(() => showMessage(`Share link copied to clipboard: ${file.shareLink}`, 'success')) 
+      .catch(err => showMessage(`Failed to copy link: ${err}`, 'error'));
   };
 
   return (
@@ -63,3 +63,7 @@ const EnterpriseDrive = () => {
 };
 
 export default EnterpriseDrive;
+
+EnterpriseDrive.propTypes = {
+  showMessage: PropTypes.func.isRequired,
+};

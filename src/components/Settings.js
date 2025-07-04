@@ -32,14 +32,13 @@ const Settings = ({
         backgroundType,
         backgroundColor,
         backgroundImageUrl,
-        // Note: local images cannot be directly saved/loaded via localStorage due to security restrictions.
-        // For local images, users will need to re-upload them.
         overlayOpacity,
         blurAmount,
         fontFamily,
         fontSize
       };
       saveThemes({ ...themes, [themeName]: newTheme });
+      showMessage(`Theme "${themeName}" saved!`, 'success');
     }
   };
 
@@ -64,6 +63,7 @@ const Settings = ({
       const updatedThemes = { ...themes };
       delete updatedThemes[themeName];
       saveThemes(updatedThemes);
+      showMessage(`Theme "${themeName}" deleted!`, 'success');
     }
   };
 
@@ -202,4 +202,5 @@ Settings.propTypes = {
   setFontFamily: PropTypes.func.isRequired,
   fontSize: PropTypes.number.isRequired,
   setFontSize: PropTypes.func.isRequired,
+  showMessage: PropTypes.func.isRequired,
 };

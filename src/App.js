@@ -7,6 +7,8 @@ import AnnouncementBar from './components/AnnouncementBar';
 import EnterpriseDrive from './components/EnterpriseDrive';
 import OtherModule from './components/OtherModule';
 import DraggableModule from './components/DraggableModule';
+import Message from './components/Message';
+import ErrorBoundary from './components/ErrorBoundary';
 import '../style.css'; // Import the main stylesheet
 
 const App = () => {
@@ -52,6 +54,11 @@ const App = () => {
   }, [fontSize]);
 
   const [showSettings, setShowSettings] = useState(false);
+  const [message, setMessage] = useState(null);
+
+  const showMessage = (msg, type = 'info', duration = 3000) => {
+    setMessage({ msg, type, duration });
+  };
 
   // Function to apply background styles
   const getBackgroundStyle = () => {
@@ -85,8 +92,9 @@ const App = () => {
   };
 
   return (
-    <div style={{...getBackgroundStyle(), fontFamily: fontFamily, fontSize: `${fontSize}px`}} className="app-container">
-      <div style={getOverlayStyle()}></div>
+    <ErrorBoundary>
+      <div style={{...getBackgroundStyle(), fontFamily: fontFamily, fontSize: `${fontSize}px`}} className="app-container">
+        <div style={getOverlayStyle()}></div>
       
       {showSettings && (
         <Settings
@@ -106,6 +114,7 @@ const App = () => {
           setFontFamily={setFontFamily}
           fontSize={fontSize}
           setFontSize={setFontSize}
+          showMessage={showMessage}
         />
       )}
 
@@ -144,14 +153,17 @@ const App = () => {
       </DraggableModule>
 
       <DraggableModule id="enterprise-drive-module">
-        <EnterpriseDrive />
+        <EnterpriseDrive showMessage={showMessage} />
       </DraggableModule>
 
       <DraggableModule id="other-module">
         <OtherModule />
       </DraggableModule>
 
+      {message && <Message message={message.msg} type={message.type} duration={message.duration} />}
+
     </div>
+    </ErrorBoundary>
   );
 };
 
