@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Settings from './components/Settings';
 import Clock from './components/Clock';
 import SearchBar from './components/SearchBar';
@@ -11,14 +11,45 @@ import '../style.css'; // Import the main stylesheet
 
 const App = () => {
   // State for background settings
-  const [backgroundType, setBackgroundType] = useState('color'); // 'color', 'url', 'local'
-  const [backgroundColor, setBackgroundColor] = useState('#f0f0f0');
-  const [backgroundImageUrl, setBackgroundImageUrl] = useState('');
-  const [backgroundLocalImage, setBackgroundLocalImage] = useState(null);
-  const [overlayOpacity, setOverlayOpacity] = useState(0.5);
-  const [blurAmount, setBlurAmount] = useState(0);
-  const [fontFamily, setFontFamily] = useState('sans-serif');
-  const [fontSize, setFontSize] = useState(16);
+  const [backgroundType, setBackgroundType] = useState(() => localStorage.getItem('backgroundType') || 'color');
+  const [backgroundColor, setBackgroundColor] = useState(() => localStorage.getItem('backgroundColor') || '#f0f0f0');
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState(() => localStorage.getItem('backgroundImageUrl') || '');
+  const [backgroundLocalImage, setBackgroundLocalImage] = useState(null); // Local images cannot be directly stored in localStorage
+  const [overlayOpacity, setOverlayOpacity] = useState(() => parseFloat(localStorage.getItem('overlayOpacity')) || 0.5);
+  const [blurAmount, setBlurAmount] = useState(() => parseInt(localStorage.getItem('blurAmount')) || 0);
+  const [fontFamily, setFontFamily] = useState(() => localStorage.getItem('fontFamily') || 'sans-serif');
+  const [fontSize, setFontSize] = useState(() => parseInt(localStorage.getItem('fontSize')) || 16);
+
+  useEffect(() => {
+    localStorage.setItem('backgroundType', backgroundType);
+  }, [backgroundType]);
+
+  useEffect(() => {
+    localStorage.setItem('backgroundColor', backgroundColor);
+  }, [backgroundColor]);
+
+  useEffect(() => {
+    localStorage.setItem('backgroundImageUrl', backgroundImageUrl);
+  }, [backgroundImageUrl]);
+
+  // Note: backgroundLocalImage cannot be directly stored in localStorage.
+  // We will need to re-upload it or store its URL if it's hosted.
+
+  useEffect(() => {
+    localStorage.setItem('overlayOpacity', overlayOpacity);
+  }, [overlayOpacity]);
+
+  useEffect(() => {
+    localStorage.setItem('blurAmount', blurAmount);
+  }, [blurAmount]);
+
+  useEffect(() => {
+    localStorage.setItem('fontFamily', fontFamily);
+  }, [fontFamily]);
+
+  useEffect(() => {
+    localStorage.setItem('fontSize', fontSize);
+  }, [fontSize]);
 
   const [showSettings, setShowSettings] = useState(false);
 

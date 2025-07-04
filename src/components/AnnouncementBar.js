@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const AnnouncementBar = () => {
-  const [announcement, setAnnouncement] = useState('欢迎使用新标签页！');
+  const [announcement, setAnnouncement] = useState(() => localStorage.getItem('announcement') || '欢迎使用新标签页！');
   const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('announcement', announcement);
+  }, [announcement]);
 
   const handleSave = () => {
     setIsEditing(false);
