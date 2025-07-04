@@ -1,6 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+const inputStyle = {
+  width: '100%',
+  padding: '8px',
+  borderRadius: '5px',
+  border: '1px solid #ccc',
+  boxSizing: 'border-box',
+  marginBottom: '10px',
+};
+
+const buttonStyle = {
+  padding: '10px 15px',
+  backgroundColor: '#007bff',
+  color: 'white',
+  border: 'none',
+  borderRadius: '5px',
+  cursor: 'pointer',
+  fontWeight: 'bold',
+  transition: 'background-color 0.3s ease',
+};
+
 const Settings = ({
   backgroundType, setBackgroundType,
   backgroundColor, setBackgroundColor,
@@ -68,116 +88,134 @@ const Settings = ({
   };
 
   return (
-    <div style={{ 
+    <div style={{
       position: 'absolute',
       top: '20px',
       right: '20px',
-      backgroundColor: 'rgba(255, 255, 255, 0.8)',
-      padding: '20px',
-      borderRadius: '8px',
-      zIndex: 100
+      backgroundColor: 'rgba(255, 255, 255, 0.95)', /* More opaque */
+      padding: '25px', /* More padding */
+      borderRadius: '12px', /* More rounded */
+      zIndex: 100,
+      boxShadow: '0 8px 16px rgba(0,0,0,0.25)', /* Stronger shadow */
+      color: '#333', /* Darker text for better contrast */
+      width: '300px', /* Fixed width */
+      boxSizing: 'border-box'
     }}>
-      <h3>Background Settings</h3>
-      <div>
-        <label>Background Type:</label>
-        <select value={backgroundType} onChange={(e) => setBackgroundType(e.target.value)}>
-          <option value="color">Solid Color</option>
-          <option value="url">Image URL</option>
-          <option value="local">Local Image</option>
-        </select>
+      <h3 style={{ color: '#555', marginBottom: '20px' }}>Settings</h3>
+
+      <div style={{ marginBottom: '20px', paddingBottom: '15px', borderBottom: '1px solid #eee' }}>
+        <h4 style={{ marginTop: 0, marginBottom: '10px', color: '#666' }}>Background</h4>
+        <div style={{ marginBottom: '10px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Type:</label>
+          <select value={backgroundType} onChange={(e) => setBackgroundType(e.target.value)} style={inputStyle}>
+            <option value="color">Solid Color</option>
+            <option value="url">Image URL</option>
+            <option value="local">Local Image</option>
+          </select>
+        </div>
+
+        {backgroundType === 'color' && (
+          <div style={{ marginBottom: '10px' }}>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Color:</label>
+            <input type="color" value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} style={inputStyle} />
+          </div>
+        )}
+
+        {backgroundType === 'url' && (
+          <div style={{ marginBottom: '10px' }}>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Image URL:</label>
+            <input
+              type="text"
+              value={backgroundImageUrl}
+              onChange={(e) => setBackgroundImageUrl(e.target.value)}
+              placeholder="Enter image URL"
+              style={inputStyle}
+            />
+          </div>
+        )}
+
+        {backgroundType === 'local' && (
+          <div style={{ marginBottom: '10px' }}>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Upload Local Image:</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setBackgroundLocalImage(e.target.files[0])}
+              style={inputStyle}
+            />
+          </div>
+        )}
       </div>
 
-      {backgroundType === 'color' && (
-        <div>
-          <label>Color:</label>
-          <input type="color" value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} />
-        </div>
-      )}
-
-      {backgroundType === 'url' && (
-        <div>
-          <label>Image URL:</label>
-          <input 
-            type="text" 
-            value={backgroundImageUrl} 
-            onChange={(e) => setBackgroundImageUrl(e.target.value)} 
-            placeholder="Enter image URL"
+      <div style={{ marginBottom: '20px', paddingBottom: '15px', borderBottom: '1px solid #eee' }}>
+        <h4 style={{ marginTop: 0, marginBottom: '10px', color: '#666' }}>Overlay</h4>
+        <div style={{ marginBottom: '10px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Opacity:</label>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={overlayOpacity}
+            onChange={(e) => setOverlayOpacity(parseFloat(e.target.value))}
+            style={{ width: '100%' }}
           />
+          <span style={{ fontSize: '0.9em', color: '#777' }}>{Math.round(overlayOpacity * 100)}%</span>
         </div>
-      )}
 
-      {backgroundType === 'local' && (
-        <div>
-          <label>Upload Local Image:</label>
-          <input 
-            type="file" 
-            accept="image/*" 
-            onChange={(e) => setBackgroundLocalImage(e.target.files[0])} 
+        <div style={{ marginBottom: '10px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Blur Amount (px):</label>
+          <input
+            type="range"
+            min="0"
+            max="20"
+            step="1"
+            value={blurAmount}
+            onChange={(e) => setBlurAmount(parseInt(e.target.value))}
+            style={{ width: '100%' }}
           />
+          <span style={{ fontSize: '0.9em', color: '#777' }}>{blurAmount}px</span>
         </div>
-      )}
-
-      <h4>Overlay Settings</h4>
-
-      <h4>Font Settings</h4>
-      <div>
-        <label>Font Family:</label>
-        <select value={fontFamily} onChange={(e) => setFontFamily(e.target.value)}>
-          <option value="sans-serif">Sans-serif</option>
-          <option value="serif">Serif</option>
-          <option value="monospace">Monospace</option>
-          <option value="Arial">Arial</option>
-          <option value="Verdana">Verdana</option>
-          <option value="Helvetica">Helvetica</option>
-          <option value="Tahoma">Tahoma</option>
-          <option value="Trebuchet MS">Trebuchet MS</option>
-          <option value="Georgia">Georgia</option>
-          <option value="Times New Roman">Times New Roman</option>
-          <option value="Courier New">Courier New</option>
-          <option value="Lucida Console">Lucida Console</option>
-        </select>
       </div>
-      <div>
-        <label>Font Size:</label>
-        <input type="range" min="12" max="36" step="1" value={fontSize} onChange={(e) => setFontSize(parseInt(e.target.value))} />
-        <span>{fontSize}px</span>
-      </div>
-      <div>
-        <label>Opacity:</label>
-        <input 
-          type="range" 
-          min="0" 
-          max="1" 
-          step="0.01" 
-          value={overlayOpacity} 
-          onChange={(e) => setOverlayOpacity(parseFloat(e.target.value))} 
-        />
-        <span>{Math.round(overlayOpacity * 100)}%</span>
+
+      <div style={{ marginBottom: '20px', paddingBottom: '15px', borderBottom: '1px solid #eee' }}>
+        <h4 style={{ marginTop: 0, marginBottom: '10px', color: '#666' }}>Font</h4>
+        <div style={{ marginBottom: '10px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Family:</label>
+          <select value={fontFamily} onChange={(e) => setFontFamily(e.target.value)} style={inputStyle}>
+            <option value="sans-serif">Sans-serif</option>
+            <option value="serif">Serif</option>
+            <option value="monospace">Monospace</option>
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Helvetica">Helvetica</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Lucida Console">Lucida Console</option>
+          </select>
+        </div>
+        <div style={{ marginBottom: '10px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Size:</label>
+          <input type="range" min="12" max="36" step="1" value={fontSize} onChange={(e) => setFontSize(parseInt(e.target.value))} style={{ width: '100%' }} />
+          <span style={{ fontSize: '0.9em', color: '#777' }}>{fontSize}px</span>
+        </div>
       </div>
 
       <div>
-        <label>Blur Amount (px):</label>
-        <input 
-          type="range" 
-          min="0" 
-          max="20" 
-          step="1" 
-          value={blurAmount} 
-          onChange={(e) => setBlurAmount(parseInt(e.target.value))} 
-        />
-        <span>{blurAmount}px</span>
-      </div>
-
-      <h4>Themes</h4>
-      <div>
-        <button onClick={handleSaveTheme}>Save Current Theme</button>
-        <select id="theme-select" onChange={handleLoadTheme}>
-          <option value="">Load Theme</option>
-          {Object.keys(themes).map((themeName) => (
-            <option key={themeName} value={themeName}>{themeName}</option>
-          ))}
-        </select>
-        <button onClick={handleDeleteTheme}>Delete Selected Theme</button>
+        <h4 style={{ marginTop: 0, marginBottom: '10px', color: '#666' }}>Themes</h4>
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+          <button onClick={handleSaveTheme} style={buttonStyle}>Save Current</button>
+          <select id="theme-select" onChange={handleLoadTheme} style={{ ...inputStyle, flexGrow: 1 }}>
+            <option value="">Load Theme</option>
+            {Object.keys(themes).map((themeName) => (
+              <option key={themeName} value={themeName}>{themeName}</option>
+            ))}
+          </select>
+        </div>
+        <button onClick={handleDeleteTheme} style={{ ...buttonStyle, backgroundColor: '#dc3545' }}>Delete Selected</button>
       </div>
     </div>
   );

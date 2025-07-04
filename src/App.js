@@ -118,20 +118,26 @@ const App = () => {
         />
       )}
 
-      <button 
+      <button
         onClick={() => setShowSettings(!showSettings)}
         style={{
-          position: 'absolute',
+          position: 'fixed', /* Use fixed for consistent positioning */
           top: '20px',
           left: '20px',
           zIndex: 101,
-          padding: '10px 15px',
-          backgroundColor: 'rgba(0,0,0,0.5)',
+          padding: '10px 18px', /* Slightly more padding */
+          backgroundColor: 'rgba(0,0,0,0.6)', /* Slightly more opaque */
           color: 'white',
           border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer'
+          borderRadius: '25px', /* Pill shape */
+          cursor: 'pointer',
+          fontSize: '1em',
+          fontWeight: 'bold',
+          boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+          transition: 'background-color 0.3s ease',
         }}
+        onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.8)'}
+        onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.6)'}
       >
         {showSettings ? 'Hide Settings' : 'Show Settings'}
       </button>

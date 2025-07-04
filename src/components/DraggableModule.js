@@ -21,21 +21,23 @@ const DraggableModule = ({ id, children }) => {
       onStop={handleStop}
     >
       <div style={{
-        position: 'absolute', // Allow absolute positioning for drag
+        position: 'absolute', // Keep absolute for draggable, but grid will override
         cursor: 'grab',
-        padding: '10px',
-        border: '1px solid rgba(255,255,255,0.3)',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-        minWidth: '200px',
-        minHeight: '100px',
+        padding: '20px', /* Increased padding */
+        border: 'none', /* Remove border */
+        borderRadius: '12px', /* More rounded corners */
+        boxShadow: '0 6px 12px rgba(0,0,0,0.3)', /* Stronger shadow */
+        minWidth: '250px', /* Slightly wider */
+        minHeight: '120px', /* Slightly taller */
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.1)', // Semi-transparent background
+        backgroundColor: 'rgba(255, 255, 255, 0.15)', /* Slightly less transparent */
         color: 'white',
-        textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+        textShadow: '1px 1px 3px rgba(0,0,0,0.6)', /* Stronger text shadow */
+        backdropFilter: 'blur(5px)', /* Add blur to module background */
+        WebkitBackdropFilter: 'blur(5px)' /* For Safari compatibility */
       }}>
         <div className="handle" style={{ width: '100%', textAlign: 'center', cursor: 'move', marginBottom: '10px', fontWeight: 'bold' }}>
           Drag Me

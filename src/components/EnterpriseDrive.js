@@ -21,16 +21,17 @@ const EnterpriseDrive = ({ showMessage }) => {
 
   return (
     <div style={{
-      backgroundColor: 'rgba(255, 255, 255, 0.2)',
-      padding: '10px 20px',
-      borderRadius: '8px',
-      marginTop: '20px',
-      width: '80%',
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      padding: '15px',
+      borderRadius: '12px',
+      width: '100%',
+      boxSizing: 'border-box',
       textAlign: 'center',
-      position: 'relative',
-      zIndex: 1,
       color: 'white',
-      textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+      textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+      backdropFilter: 'blur(5px)',
+      WebkitBackdropFilter: 'blur(5px)'
     }}>
       <h3>企业网盘 (模拟数据)</h3>
       <ul style={{ listStyle: 'none', padding: 0 }}>

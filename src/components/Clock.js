@@ -29,26 +29,40 @@ const Clock = () => {
   };
 
   return (
-    <div style={{ 
-      color: 'white', 
-      fontSize: '3em', 
-      fontWeight: 'bold', 
-      textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+    <div style={{
+      color: 'white',
+      fontSize: '4em', /* Larger font size */
+      fontWeight: 'bold',
+      textShadow: '2px 2px 6px rgba(0,0,0,0.7)', /* Stronger shadow */
       position: 'relative',
-      zIndex: 1
+      zIndex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      height: '100%',
+      boxSizing: 'border-box'
     }}>
       {formatTime(time)}
-      <button 
+      <button
         onClick={() => setFormat24Hour(!format24Hour)}
         style={{
-          marginLeft: '10px',
-          padding: '5px 10px',
-          backgroundColor: 'rgba(255,255,255,0.2)',
+          marginTop: '15px',
+          padding: '8px 15px',
+          backgroundColor: 'rgba(255,255,255,0.3)',
           border: 'none',
-          borderRadius: '5px',
+          borderRadius: '8px',
           color: 'white',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          fontSize: '0.8em',
+          fontWeight: 'normal',
+          backdropFilter: 'blur(3px)',
+          WebkitBackdropFilter: 'blur(3px)',
+          transition: 'background-color 0.3s ease', /* Smooth transition */
         }}
+        onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.5)'}
+        onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.3)'}
       >
         {format24Hour ? '12-Hour' : '24-Hour'}
       </button>
