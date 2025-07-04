@@ -19,6 +19,7 @@ const DraggableModule = ({ id, children }) => {
       handle=".handle"
       defaultPosition={position}
       onStop={handleStop}
+      grid={[50, 50]} /* 30px cell + 20px gap = 50px */
     >
       <div style={{
         position: 'absolute', // Keep absolute for draggable, but grid will override
