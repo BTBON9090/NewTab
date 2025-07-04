@@ -136,29 +136,31 @@ const App = () => {
         {showSettings ? 'Hide Settings' : 'Show Settings'}
       </button>
 
-      <DraggableModule id="clock-module">
-        <Clock />
-      </DraggableModule>
+      <div className="main-content-grid">
+        <DraggableModule id="clock-module">
+          <Clock />
+        </DraggableModule>
 
-      <DraggableModule id="search-bar-module">
-        <SearchBar />
-      </DraggableModule>
+        <DraggableModule id="search-bar-module">
+          <SearchBar />
+        </DraggableModule>
 
-      <DraggableModule id="quick-links-module">
-        <QuickLinks />
-      </DraggableModule>
+        <DraggableModule id="quick-links-module">
+          <QuickLinks />
+        </DraggableModule>
 
-      <DraggableModule id="announcement-bar-module">
-        <AnnouncementBar />
-      </DraggableModule>
+        <DraggableModule id="announcement-bar-module">
+          <AnnouncementBar />
+        </DraggableModule>
 
-      <DraggableModule id="enterprise-drive-module">
-        <EnterpriseDrive showMessage={showMessage} />
-      </DraggableModule>
+        <DraggableModule id="enterprise-drive-module">
+          <EnterpriseDrive showMessage={showMessage} />
+        </DraggableModule>
 
-      <DraggableModule id="other-module">
-        <OtherModule />
-      </DraggableModule>
+        <DraggableModule id="other-module">
+          <OtherModule />
+        </DraggableModule>
+      </div>
 
       {message && <Message message={message.msg} type={message.type} duration={message.duration} />}
 
