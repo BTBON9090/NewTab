@@ -55,6 +55,22 @@ const App = () => {
 
   const [showSettings, setShowSettings] = useState(false);
   const [message, setMessage] = useState(null);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const showMessage = (msg, type = 'info', duration = 3000) => {
     setMessage({ msg, type, duration });
@@ -143,29 +159,29 @@ const App = () => {
       </button>
 
       <div className="main-content-grid">
-        <DraggableModule id="clock-module">
-          <Clock />
-        </DraggableModule>
+        <DraggableModule id="clock-module" bounds={{ left: 20, top: 20, right: windowSize.width - 20, bottom: windowSize.height - 20 }}>
+        <Clock />
+      </DraggableModule>
 
-        <DraggableModule id="search-bar-module">
-          <SearchBar />
-        </DraggableModule>
+      <DraggableModule id="search-bar-module" bounds={{ left: 20, top: 20, right: windowSize.width - 20, bottom: windowSize.height - 20 }}>
+        <SearchBar />
+      </DraggableModule>
 
-        <DraggableModule id="quick-links-module">
-          <QuickLinks />
-        </DraggableModule>
+      <DraggableModule id="quick-links-module" bounds={{ left: 20, top: 20, right: windowSize.width - 20, bottom: windowSize.height - 20 }}>
+        <QuickLinks />
+      </DraggableModule>
 
-        <DraggableModule id="announcement-bar-module">
-          <AnnouncementBar />
-        </DraggableModule>
+      <DraggableModule id="announcement-bar-module" bounds={{ left: 20, top: 20, right: windowSize.width - 20, bottom: windowSize.height - 20 }}>
+        <AnnouncementBar />
+      </DraggableModule>
 
-        <DraggableModule id="enterprise-drive-module">
-          <EnterpriseDrive showMessage={showMessage} />
-        </DraggableModule>
+      <DraggableModule id="enterprise-drive-module" bounds={{ left: 20, top: 20, right: windowSize.width - 20, bottom: windowSize.height - 20 }}>
+        <EnterpriseDrive showMessage={showMessage} />
+      </DraggableModule>
 
-        <DraggableModule id="other-module">
-          <OtherModule />
-        </DraggableModule>
+      <DraggableModule id="other-module" bounds={{ left: 20, top: 20, right: windowSize.width - 20, bottom: windowSize.height - 20 }}>
+        <OtherModule />
+      </DraggableModule>
       </div>
 
       {message && <Message message={message.msg} type={message.type} duration={message.duration} />}

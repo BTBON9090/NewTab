@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 
-const DraggableModule = ({ id, children }) => {
+const DraggableModule = ({ id, children, bounds }) => {
   const [position, setPosition] = React.useState(() => {
     const storedPos = localStorage.getItem(`module-pos-${id}`);
     return storedPos ? JSON.parse(storedPos) : { x: 0, y: 0 };
@@ -20,6 +20,7 @@ const DraggableModule = ({ id, children }) => {
       defaultPosition={position}
       onStop={handleStop}
       grid={[50, 50]} /* 30px cell + 20px gap = 50px */
+      bounds={bounds} /* Apply bounds here */
     >
       <div style={{
         position: 'absolute', // Keep absolute for draggable, but grid will override
@@ -54,4 +55,5 @@ export default DraggableModule;
 DraggableModule.propTypes = {
   id: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  bounds: PropTypes.object, // Add bounds propType
 };
